@@ -60,7 +60,7 @@ conj(Goal1,Goal2,St0,Str) :-
 mplus(Str1,Str2,Str) :-
     is_immature(Str1),
     !,
-    freeze(Str,(force(Str1),mplus(Str1,Str2,Str))).
+    freeze(Str,(force(Str1),mplus(Str2,Str1,Str))).
 mplus([],Str,Str).
 mplus([St|Sts0],Str,[St|Sts]) :-
     mplus(Sts0,Str,Sts).
