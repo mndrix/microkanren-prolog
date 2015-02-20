@@ -1,3 +1,6 @@
+delay(Goal,St,Str) :-
+    freeze(Str,call(Goal,St,Str)).
+
 fives(X) -->
     disj(unify(X,5),delay(fives(X))).
 

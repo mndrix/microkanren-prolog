@@ -1,7 +1,6 @@
 :- module(microkanren, [
     call_fresh/4,
     conj/4,
-    delay/3,
     disj/4,
     empty_state/1,
     unify/4
@@ -74,9 +73,6 @@ bind([St|Sts],Goal,Str) :-
     call(Goal,St,Str1),
     bind(Sts,Goal,Str2),
     mplus(Str1,Str2,Str).
-
-delay(Goal,St,Str) :-
-    freeze(Str,call(Goal,St,Str)).
 
 is_immature(Str) :-
     \+ frozen(Str,true).
