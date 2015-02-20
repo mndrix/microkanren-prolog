@@ -22,8 +22,6 @@ var(var(C0),state(Sub,C0),state(Sub,C)) :-
 walk(U,Sub,V) :-
     ( U=var(_), memberchk(U-V0,Sub) -> walk(V0,Sub,V); V=U ).
 
-extend(X,V,Sub,[X-V|Sub]).
-
 unify(U,V,state(Sub0,C),Str) :-
     ( unification(U,V,Sub0,Sub) -> unit(state(Sub,C),Str); Str=[] ).
 
