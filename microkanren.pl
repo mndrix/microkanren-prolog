@@ -1,11 +1,3 @@
-:- module(microkanren, [
-    call_fresh/4,
-    conj/4,
-    disj/4,
-    empty_state/1,
-    unify/4
-]).
-
 %% Naming conventions
 %
 % Sub - a substitution
