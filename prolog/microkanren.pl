@@ -1,6 +1,7 @@
 :- module(microkanren, [
     call_fresh/4,
     conj/4,
+    delay/3,
     disj/4,
     empty_state/1,
     unify/4
@@ -56,12 +57,29 @@ conj(Goal1,Goal2,St0,Str) :-
     call(Goal1,St0,Str0),
     bind(Str0, Goal2, Str).
 
+mplus(Str1,Str2,Str) :-
+    is_immature(Str1),
+    !,
+    freeze(Str,(force(Str1),mplus(Str1,Str2,Str))).
 mplus([],Str,Str).
 mplus([St|Sts0],Str,[St|Sts]) :-
     mplus(Sts0,Str,Sts).
 
+bind(Str0,Goal,Str) :-
+    is_immature(Str0),
+    !,
+    freeze(Str,(force(Str0),bind(Str0,Goal,Str))).
 bind([],_,[]).
 bind([St|Sts],Goal,Str) :-
     call(Goal,St,Str1),
     bind(Sts,Goal,Str2),
     mplus(Str1,Str2,Str).
+
+delay(Goal,St,Str) :-
+    freeze(Str,call(Goal,St,Str)).
+
+is_immature(Str) :-
+    \+ frozen(Str,true).
+
+force(Str) :-
+    once(Str=[_|_]; Str=[]).
